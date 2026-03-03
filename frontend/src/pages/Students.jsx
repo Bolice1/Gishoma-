@@ -48,6 +48,7 @@ const emptyForm = {
   firstName: '', lastName: '', email: '', password: '',
   studentId: '', class_level: 'Senior 1', section: 'A',
   gender: '', dateOfBirth: '', parentName: '', parentPhone: '', address: '',
+  is_prefect: 'none',
 };
 
 export default function Students() {
@@ -102,6 +103,7 @@ export default function Students() {
       dateOfBirth: st.date_of_birth ? st.date_of_birth.split('T')[0] : '',
       parentName: st.parent_name || '', parentPhone: st.parent_phone || '',
       address: st.address || '',
+      is_prefect: st.is_prefect || 'none',
     });
     setError('');
     setShowModal(true);
@@ -120,6 +122,7 @@ export default function Students() {
           gender: form.gender || null, dateOfBirth: form.dateOfBirth || null,
           parentName: form.parentName || null, parentPhone: form.parentPhone || null,
           address: form.address || null,
+          is_prefect: form.is_prefect !== 'none' ? form.is_prefect : null,
         });
       } else {
         await api.post('/students', {
@@ -130,6 +133,7 @@ export default function Students() {
           gender: form.gender || null, dateOfBirth: form.dateOfBirth || null,
           parentName: form.parentName || null, parentPhone: form.parentPhone || null,
           address: form.address || null,
+          is_prefect: form.is_prefect !== 'none' ? form.is_prefect : null,
         });
       }
       setShowModal(false);
@@ -227,7 +231,14 @@ export default function Students() {
                     <div style={s.nameCell}>
                       <div style={s.avatar}>{initials(st)}</div>
                       <div>
-                        <div style={{ fontWeight: 500 }}>{st.first_name} {st.last_name}</div>
+                        <div style={{ fontWeight: 500 }}>
+                           {st.first_name} {st.last_name}
+                           {st.is_prefect && st.is_prefect !== 'none' && (
+                             <span style={{ fontSize: '0.75rem', background: 'rgba(245,158,11,0.2)', color: 'var(--color-warning)', padding: '0.15rem 0.5rem', borderRadius: '10px', marginLeft: '0.5rem' }}>
+                               👑 {st.is_prefect === 'head_boy' ? 'Head Boy' : 'Head Girl'}
+                             </span>
+                           )}
+                         </div>
                         {st.parent_name && <div style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>Parent: {st.parent_name}</div>}
                       </div>
                     </div>
@@ -314,6 +325,15 @@ export default function Students() {
                   {SECTIONS.map(sec => <option key={sec} value={sec}>{sec}</option>)}
                 </select>
               </div>
+            </div>
+
+            <div style={s.field}>
+              <label style={s.label}>Prefect Role</label>
+              <select style={s.selectFull} value={form.is_prefect} onChange={e => f('is_prefect', e.target.value)}>
+                <option value="none">None</option>
+                <option value="head_boy">👑 Head Boy</option>
+                <option value="head_girl">👑 Head Girl</option>
+              </select>
             </div>
 
             <p style={s.section}>Personal Info</p>

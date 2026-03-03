@@ -89,6 +89,7 @@ CREATE TABLE IF NOT EXISTS students (
   parent_name VARCHAR(255),
   parent_phone VARCHAR(50),
   address TEXT,
+  is_prefect ENUM('head_boy', 'head_girl') NULL,
   enrollment_date DATE,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
