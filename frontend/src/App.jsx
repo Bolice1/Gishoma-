@@ -26,6 +26,7 @@ import Exercises from './pages/Exercises';
 import Notes from './pages/Notes';
 import Fees from './pages/Fees';
 import Announcements from './pages/Announcements';
+import StudentChat from './pages/StudentChat';
 import Reports from './pages/Reports';
 import ActivityLogs from './pages/ActivityLogs';
 
@@ -68,17 +69,18 @@ function AppRoutes() {
         <Route path="schools" element={<ProtectedRoute roles={['super_admin']}><Schools /></ProtectedRoute>} />
         <Route path="activity-logs" element={<ProtectedRoute roles={['super_admin']}><ActivityLogs /></ProtectedRoute>} />
         <Route path="users" element={<ProtectedRoute roles={['super_admin', 'school_admin']}><Users /></ProtectedRoute>} />
-        <Route path="students" element={<ProtectedRoute roles={['super_admin', 'school_admin', 'dean', 'bursar', 'teacher']}><Students /></ProtectedRoute>} />
+        <Route path="students" element={<ProtectedRoute roles={['super_admin', 'school_admin', 'dean', 'bursar', 'teacher', 'patron', 'matron']}><Students /></ProtectedRoute>} />
         <Route path="teachers" element={<ProtectedRoute roles={['super_admin', 'school_admin', 'dean']}><Teachers /></ProtectedRoute>} />
         <Route path="courses" element={<ProtectedRoute roles={['super_admin', 'school_admin', 'dean', 'teacher', 'student']}><Courses /></ProtectedRoute>} />
-        <Route path="attendance" element={<ProtectedRoute roles={['super_admin', 'school_admin', 'dean', 'teacher']}><Attendance /></ProtectedRoute>} />
-        <Route path="marks" element={<ProtectedRoute roles={['super_admin', 'school_admin', 'teacher']}><Marks /></ProtectedRoute>} />
-        <Route path="discipline" element={<ProtectedRoute roles={['super_admin', 'school_admin', 'dean', 'teacher']}><Discipline /></ProtectedRoute>} />
+        <Route path="attendance" element={<ProtectedRoute roles={['super_admin', 'school_admin', 'dean', 'teacher', 'patron', 'matron']}><Attendance /></ProtectedRoute>} />
+        <Route path="marks" element={<ProtectedRoute roles={['super_admin', 'school_admin', 'teacher', 'patron', 'matron', 'dean', 'student']}><Marks /></ProtectedRoute>} />
+        <Route path="discipline" element={<ProtectedRoute roles={['super_admin', 'school_admin', 'dean', 'teacher', 'patron', 'matron']}><Discipline /></ProtectedRoute>} />
         <Route path="homework" element={<ProtectedRoute roles={['super_admin', 'school_admin', 'teacher', 'student']}><Homework /></ProtectedRoute>} />
         <Route path="exercises" element={<ProtectedRoute roles={['super_admin', 'school_admin', 'teacher', 'student']}><Exercises /></ProtectedRoute>} />
         <Route path="notes" element={<ProtectedRoute roles={['super_admin', 'school_admin', 'teacher', 'student']}><Notes /></ProtectedRoute>} />
         <Route path="fees" element={<ProtectedRoute roles={['super_admin', 'school_admin', 'bursar']}><Fees /></ProtectedRoute>} />
         <Route path="announcements" element={<ProtectedRoute><Announcements /></ProtectedRoute>} />
+        <Route path="chat" element={<ProtectedRoute roles={['student', 'patron', 'matron', 'dean', 'teacher', 'school_admin']}><StudentChat /></ProtectedRoute>} />
         <Route path="reports" element={<ProtectedRoute roles={['student']}><Reports /></ProtectedRoute>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
