@@ -48,7 +48,7 @@ async function create(req, res, next) {
     const id = uuidv4();
     await query(
       `INSERT INTO disciplines (id, school_id, student_id, teacher_id, type, description, date, resolution, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [id, schoolId, studentId, teacherId, type, description, date, resolution || null, status || 'open']
+      [id, schoolId, studentId, teacherId, type, description || null, date, resolution || null, status || 'open']
     );
 
     const created = await query('SELECT * FROM disciplines WHERE id = ?', [id]);
