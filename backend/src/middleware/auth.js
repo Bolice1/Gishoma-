@@ -19,8 +19,8 @@ async function authenticate(req, res, next) {
 
     // Check if token is blacklisted
     const blacklisted = await query(
-      'SELECT 1 FROM blacklisted_tokens WHERE jti = ? LIMIT 1',
-      [decoded.jti || decoded.iat + decoded.userId]
+      'SELECT 1 FROM blacklisted_tokens WHERE token = ? AND expires_at > NOW() LIMIT 1',
+      [token]
     );
     if (blacklisted.length > 0) {
       return res.status(401).json({ error: 'Token has been revoked.' });
