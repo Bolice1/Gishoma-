@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../store/authSlice';
+import NotificationBell from './NotificationBell';
+import ThemeToggle from './ThemeToggle';
 
 export default function Header() {
   const dispatch = useDispatch();
@@ -11,9 +13,13 @@ export default function Header() {
         <span style={styles.name}>{user?.first_name ?? ''} {user?.last_name ?? ''}</span>
         <span style={styles.role}>{user?.role ? String(user.role).replace(/_/g, ' ') : ''}</span>
       </div>
-      <button style={styles.logoutBtn} onClick={() => dispatch(logout())}>
-        Logout
-      </button>
+      <div style={styles.actions}>
+        <NotificationBell />
+        <ThemeToggle />
+        <button style={styles.logoutBtn} onClick={() => dispatch(logout())}>
+          Logout
+        </button>
+      </div>
     </header>
   );
 }
@@ -39,11 +45,17 @@ const styles = {
     color: 'var(--color-text-muted)',
     textTransform: 'capitalize',
   },
+  actions: {
+    display: 'flex',
+    gap: '0.75rem',
+    alignItems: 'center',
+  },
   logoutBtn: {
     padding: '0.5rem 1rem',
     background: 'transparent',
     border: '1px solid var(--color-border)',
     color: 'var(--color-text-muted)',
     borderRadius: '6px',
+    cursor: 'pointer',
   },
 };

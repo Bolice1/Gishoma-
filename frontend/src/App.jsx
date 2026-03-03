@@ -53,6 +53,12 @@ function AppRoutes() {
     if (token) dispatch(fetchMe()).catch(() => { });
   }, [token, dispatch]);
 
+  useEffect(() => {
+    // Initialize theme from localStorage
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  }, []);
+
   // Login route - always render Login component (never blank)
   if (location.pathname === '/login') {
     if (token) return <Navigate to="/" replace />;
