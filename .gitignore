@@ -155,3 +155,32 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+# Ignore Markdown docs except README
+*.md
+!README.md
+
+# Ignore configuration files
+*.yml
+*.yaml
+*.toml
+railway.*
+.railwayignore
+.cline_rules
+
+# Ignore local environment files
+*.env
+.env
+.
+*.env.example
+FINAL_VERIFICATION.txt
+
+# Ignore Docker artifacts
+docker-compose.override.yml
+*.log
+
+# Ignore node_modules and build outputs
+node_modules/
+frontend/node_modules/
+backend/node_modules/
+dist/
+build/
