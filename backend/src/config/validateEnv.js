@@ -27,7 +27,7 @@ function validateEnv() {
   // Check required variables
   const missing = required.filter((key) => !process.env[key]);
   if (missing.length > 0) {
-    console.error('🚨 FATAL: Missing required environment variables:', missing.join(', '));
+    console.error('FATAL: Missing required environment variables:', missing.join(', '));
     process.exit(1);
   }
 
@@ -36,38 +36,38 @@ function validateEnv() {
   const jwtRefreshLength = (process.env.JWT_REFRESH_SECRET || '').length;
 
   if (jwtAccessLength < 64) {
-    console.error('🚨 FATAL: JWT_ACCESS_SECRET must be at least 64 characters. Current length:', jwtAccessLength);
+    console.error('FATAL: JWT_ACCESS_SECRET must be at least 64 characters. Current length:', jwtAccessLength);
     process.exit(1);
   }
   if (jwtRefreshLength < 64) {
-    console.error('🚨 FATAL: JWT_REFRESH_SECRET must be at least 64 characters. Current length:', jwtRefreshLength);
+    console.error('FATAL: JWT_REFRESH_SECRET must be at least 64 characters. Current length:', jwtRefreshLength);
     process.exit(1);
   }
 
   // Check bcrypt rounds
   const bcryptRounds = parseInt(process.env.BCRYPT_ROUNDS || '12', 10);
   if (bcryptRounds < 12) {
-    console.warn('⚠️  WARNING: BCRYPT_ROUNDS should be >= 12. Current:', bcryptRounds);
+    console.warn('WARNING: BCRYPT_ROUNDS should be >= 12. Current:', bcryptRounds);
   }
 
   // Production-specific checks
   if (process.env.NODE_ENV === 'production') {
     const weakPasswords = ['12345', 'password', 'root', 'admin', 'test', '1234', 'postgres'];
     if (weakPasswords.includes(process.env.DB_PASSWORD)) {
-      console.error('🚨 FATAL: Weak database password in production! Change DB_PASSWORD immediately.');
+      console.error('FATAL: Weak database password in production! Change DB_PASSWORD immediately.');
       process.exit(1);
     }
 
     if (!process.env.DB_SSL || process.env.DB_SSL !== 'true') {
-      console.warn('⚠️  WARNING: Database SSL not enabled in production. Set DB_SSL=true');
+      console.warn('WARNING: Database SSL not enabled in production. Set DB_SSL=true');
     }
 
     if (!process.env.ENCRYPTION_KEY) {
-      console.warn('⚠️  WARNING: ENCRYPTION_KEY not set. Student data will not be encrypted at rest.');
+      console.warn(' WARNING: ENCRYPTION_KEY not set. Student data will not be encrypted at rest.');
     }
   }
 
-  console.log('✅ Environment validation passed');
+  console.log('Environment validation passed');
 }
 
 module.exports = validateEnv;
